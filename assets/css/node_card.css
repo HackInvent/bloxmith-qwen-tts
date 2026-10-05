@@ -1,0 +1,2 @@
+[data-block-release="qwen_tts@0.1.0"] [data-qwen_tts-node-card] { width: 100%; min-width: 0; }
+[data-block-release="qwen_tts@0.1.0"] [data-qwen_tts-node-card] h3 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

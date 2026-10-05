@@ -1,0 +1,166 @@
+{
+  "kind": "qwen_tts",
+  "version": "0.1.0",
+  "title": "Qwen3 TTS",
+  "description": "Generate complete speech files locally with the pinned Qwen3-TTS 1.7B CustomVoice model.",
+  "repository_url": "https://github.com/HackInvent/bloxmith-qwen-tts",
+  "bloxsmith_compatibility": [
+    "1.0.9"
+  ],
+  "tested_with_bloxsmith": "1.0.9",
+  "prerequisites": [
+    {
+      "type": "executable",
+      "name": "ffmpeg"
+    },
+    {
+      "type": "manual",
+      "name": "Linux, a separate pinned Qwen inference environment and 4.52 GB of prepared model assets; adequate RAM/VRAM."
+    }
+  ],
+  "locales": {
+    "en": "locales/en.json",
+    "fr": "locales/fr.json"
+  },
+  "ports": {
+    "inputs": [
+      {
+        "id": 1,
+        "name": "text",
+        "title": "Text",
+        "accepts": [
+          "text/plain",
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "one",
+        "required": false,
+        "execution_requirement": "not_required_for_execution"
+      },
+      {
+        "id": 2,
+        "name": "command",
+        "title": "Interrupt",
+        "accepts": [
+          "application/json"
+        ],
+        "multiplicity": "one",
+        "required": false,
+        "execution_requirement": "not_required_for_execution"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1,
+        "name": "audio_file",
+        "title": "Complete audio file",
+        "emits": [
+          "file/path",
+          "text/plain",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 2,
+        "name": "metadata",
+        "title": "Audio metadata",
+        "emits": [
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 3,
+        "name": "status",
+        "title": "Status",
+        "emits": [
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      }
+    ]
+  },
+  "config": {
+    "asset_directory": "",
+    "environment_python": "",
+    "output_directory": "",
+    "device": "cuda:0",
+    "precision": "bfloat16",
+    "speaker": "Ryan",
+    "language": "Auto",
+    "instruct": "",
+    "format": "ogg_opus",
+    "temperature": 0.9,
+    "top_k": 50,
+    "top_p": 1,
+    "repetition_penalty": 1.05,
+    "threads": 2,
+    "max_audio_sec": 30,
+    "max_new_tokens": 1024,
+    "max_text_chars": 1000,
+    "timeout_sec": 240,
+    "memory_limit_mib": 0,
+    "min_available_ram_mib": 16384,
+    "max_pending": 4
+  },
+  "port_capabilities": {
+    "can_add_inputs": false,
+    "can_add_outputs": false
+  },
+  "runtime": {
+    "initial_state": "waiting",
+    "runtime_executable": true,
+    "active_worker": true,
+    "centralized_executor": "generic",
+    "centralized_dependency_mode": "any_event",
+    "file_browser": true,
+    "active_execution_policy": "on_each_event"
+  },
+  "ui_assets": {
+    "modal": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/block_modal.js"
+      }
+    ],
+    "inspector_panel": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/inspector_panel.js"
+      }
+    ],
+    "node_card": [
+      {
+        "kind": "css",
+        "path": "assets/css/node_card.css"
+      }
+    ]
+  }
+}

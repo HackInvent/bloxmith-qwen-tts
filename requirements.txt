@@ -1,0 +1,9 @@
+# Separate inference environment; never install into the BloxSmith interpreter.
+# Select matched Torch/torchaudio CPU or CUDA wheels explicitly for the host.
+torch==2.10.0
+torchaudio==2.10.0
+qwen-tts @ git+https://github.com/QwenLM/Qwen3-TTS@022e286b98fbec7e1e916cb940cdf532cd9f488e
+transformers==4.57.3
+accelerate==1.12.0
+numpy>=1.26,<3
+soundfile>=0.12,<0.14

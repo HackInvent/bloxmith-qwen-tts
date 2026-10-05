@@ -1,0 +1,202 @@
+[
+  {
+    "key": "asset_directory",
+    "type": "directory",
+    "label": "Model asset directory",
+    "help": "Prepare the pinned 4.52 GB CustomVoice snapshot. Run only reads verified local files; no automatic downloads."
+  },
+  {
+    "key": "environment_python",
+    "type": "text",
+    "label": "Inference Python executable",
+    "help": "Dedicated Qwen inference environment. Empty uses the application interpreter. This trusted executable runs locally; nothing is installed automatically."
+  },
+  {
+    "key": "output_directory",
+    "type": "directory",
+    "label": "Completed audio directory",
+    "help": "Empty uses this node’s persistent audio directory. Unique names; no overwrites or automatic deletion."
+  },
+  {
+    "key": "speaker",
+    "type": "select",
+    "options": [
+      "Ryan",
+      "Aiden",
+      "Vivian",
+      "Serena",
+      "Uncle_Fu",
+      "Dylan",
+      "Eric",
+      "Ono_Anna",
+      "Sohee"
+    ],
+    "label": "Built-in voice",
+    "help": "One of the nine CustomVoice speakers. No reference recording or voice cloning required."
+  },
+  {
+    "key": "language",
+    "type": "select",
+    "options": [
+      "Auto",
+      "English",
+      "French",
+      "German",
+      "Spanish",
+      "Italian",
+      "Portuguese",
+      "Russian",
+      "Chinese",
+      "Japanese",
+      "Korean"
+    ],
+    "label": "Speech language",
+    "help": "Choose the text language or automatic detection. This does not translate the text."
+  },
+  {
+    "key": "instruct",
+    "type": "textarea",
+    "rows": 3,
+    "label": "Voice style instruction",
+    "help": "Optional delivery guidance, up to 512 characters. This influences expression, not guaranteed voice identity or exact timing."
+  },
+  {
+    "key": "device",
+    "type": "select",
+    "options": [
+      "cuda:0",
+      "cpu"
+    ],
+    "label": "Inference device",
+    "help": "CUDA is recommended for interactive use. CPU is explicit and slow; unavailable CUDA never silently falls back."
+  },
+  {
+    "key": "format",
+    "type": "select",
+    "options": [
+      "ogg_opus",
+      "wav"
+    ],
+    "label": "Completed file format",
+    "help": "Complete Ogg/Opus at 48 kHz or PCM WAV at 24 kHz. No live audio stream or reference-voice upload."
+  },
+  {
+    "key": "temperature",
+    "type": "number",
+    "min": 0.1,
+    "max": 2,
+    "advanced": true,
+    "label": "Temperature",
+    "help": "Official model sampling control. Higher values increase variation; not a voice identity selector."
+  },
+  {
+    "key": "top_k",
+    "type": "integer",
+    "min": 1,
+    "max": 500,
+    "advanced": true,
+    "label": "Top-k sampling",
+    "help": "Number of candidate audio tokens retained by the official sampler."
+  },
+  {
+    "key": "precision",
+    "type": "select",
+    "options": [
+      "bfloat16",
+      "float32"
+    ],
+    "advanced": true,
+    "label": "Numeric precision",
+    "help": "Bfloat16 or float32. CUDA is explicit; unsupported devices never silently fall back to CPU."
+  },
+  {
+    "key": "threads",
+    "type": "integer",
+    "min": 1,
+    "max": 16,
+    "advanced": true,
+    "label": "CPU threads",
+    "help": "Bound native CPU parallelism in the owned inference process."
+  },
+  {
+    "key": "max_audio_sec",
+    "type": "integer",
+    "min": 1,
+    "max": 90,
+    "advanced": true,
+    "label": "Maximum audio duration (seconds)",
+    "help": "Reject decoded audio exceeding this duration. The token budget also bounds generation; an absent EOS is refused rather than published as complete."
+  },
+  {
+    "key": "max_text_chars",
+    "type": "integer",
+    "min": 1,
+    "max": 2000,
+    "advanced": true,
+    "label": "Maximum text characters",
+    "help": "Reject oversized text. The model also enforces its own combined text/audio token window."
+  },
+  {
+    "key": "timeout_sec",
+    "type": "integer",
+    "min": 1,
+    "max": 240,
+    "advanced": true,
+    "label": "Total request deadline (seconds)",
+    "help": "Verification, model loading, synthesis and publication must finish within this deadline; at most 240 seconds for managed execution."
+  },
+  {
+    "key": "memory_limit_mib",
+    "type": "integer",
+    "min": 0,
+    "max": 262144,
+    "advanced": true,
+    "label": "Process address-space limit (MiB)",
+    "help": "Optional Linux virtual-address ceiling: 0 disables it; otherwise at least 4096 MiB. CUDA can reserve large virtual ranges. Not a RAM/VRAM reservation."
+  },
+  {
+    "key": "min_available_ram_mib",
+    "type": "integer",
+    "min": 8192,
+    "max": 262144,
+    "advanced": true,
+    "label": "Required available RAM (MiB)",
+    "help": "Refuse loading below this available-RAM threshold. Default 16 GiB; this check does not reserve memory or guarantee GPU capacity."
+  },
+  {
+    "key": "max_pending",
+    "type": "integer",
+    "min": 0,
+    "max": 16,
+    "advanced": true,
+    "label": "Pending request limit",
+    "help": "Active Runtime only. Zero rejects new text while busy. Interrupt cancels the current job and clears earlier pending requests."
+  },
+  {
+    "key": "top_p",
+    "type": "number",
+    "min": 0.01,
+    "max": 1,
+    "advanced": true,
+    "label": "Top-p sampling",
+    "help": "Nucleus-sampling probability for the main audio-code generator."
+  },
+  {
+    "key": "repetition_penalty",
+    "type": "number",
+    "min": 0.1,
+    "max": 2,
+    "advanced": true,
+    "label": "Repetition penalty",
+    "help": "Main audio-code repetition penalty; not a guarantee against repeated speech."
+  },
+  {
+    "key": "max_new_tokens",
+    "type": "integer",
+    "min": 16,
+    "max": 4096,
+    "advanced": true,
+    "label": "Maximum generated tokens",
+    "help": "Ceiling for the main code sequence; also capped from the audio-duration limit. Exhaustion without EOS produces no file."
+  }
+]
